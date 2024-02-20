@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  console.log("session",session)
+  alert("session",session)
   if (!session) {
     return {
       redirect: {
