@@ -1,6 +1,7 @@
 import React from 'react'
 import { getSession } from 'next-auth/react';
 import Header from '@/component/overview/header';
+import OrderTable from '@/component/orders/order-table';
 
 
 export async function getServerSideProps(context) {
@@ -26,7 +27,7 @@ const Orders = () => {
     <Header
     heading="Orders"
     />
-
+<OrderTable/>
     </div>
   )
 }

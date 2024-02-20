@@ -1,6 +1,7 @@
 import React from 'react'
 import { getSession } from 'next-auth/react';
 import Header from '@/component/overview/header';
+import SupportTable from '@/component/support/support-table';
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -25,6 +26,7 @@ const Support = () => {
     <Header
     heading="Support"
     />
+    <SupportTable/>
     </div>
   )
 }
