@@ -44,7 +44,7 @@ const Auth = () => {
       const response = await signIn('credentials', {
         email,
         password,
-        redirect: false,
+        redirect: true,
         callbackUrl: '/'
       });
 
@@ -54,7 +54,7 @@ const Auth = () => {
         toast.error("Invalid Credentials!", {duration: 2000})
       }
 
-      router.push('/');
+      // router.push('/');
     } catch (error) {
       
       console.log(error);
