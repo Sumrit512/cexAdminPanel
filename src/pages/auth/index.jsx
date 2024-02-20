@@ -39,27 +39,27 @@ const Auth = () => {
     setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login');
   }, []);
 
-  const login = useCallback(async () => {
+  const login = async () => {
     try {
       const response = await signIn('credentials', {
         email,
         password,
-        redirect: true,
+        redirect: false,
         callbackUrl: '/'
       });
 
-      console.log(response)
+      console.log("api response",response)
 
       if (response.status === 401) {
         toast.error("Invalid Credentials!", {duration: 2000})
       }
 
-      // router.push('/');
+      router.push('/');
     } catch (error) {
       
       console.log(error);
     }
-  }, [email, password, router]);
+  };
 
   const register = useCallback(async () => {
     try {
