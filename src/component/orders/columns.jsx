@@ -3,23 +3,44 @@
 
 export const columns= [
   {
-    accessorKey: "username",
-    header: "Username",
+    accessorKey: "id",
+    header: "Order Id",
   },
   {
     accessorKey: "userid",
     header: "UserId",
   },
   {
-    accessorKey: "fullname",
-    header: "Name",
+    accessorKey: "price",
+    header: "Price",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "placedAt",
+    header: "Order Time",
   },
   {
-    accessorKey: "verficationstatus",
-    header: "Verification Status",
+    accessorKey: "type",
+    header: "Type",
   },
+  {
+    accessorKey: "value",
+    header: "Value",
+  },
+  {
+    accessorKey: "quantity",
+    header: "Quantity",
+  },
+  {
+    accessorKey: "tradeSymbol",
+    header: "Symbol",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "orderType",
+    header: "Order Type",
+  },
+
 ];

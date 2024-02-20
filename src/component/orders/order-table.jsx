@@ -7,11 +7,16 @@ const OrderTable = () => {
 
     const data = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+           id: "aksdjaiod",
+           userid: "ajsdiauhd",
+           type: "Buy",
+           price: "212.5",
+           placedAt: "18-02-2024",
+           value : "2154",
+           quantity : "10",
+           tradeSymbol : "bnb_usdt",
+           status : "filled",
+           orderType : "market"
         }
     ]
 

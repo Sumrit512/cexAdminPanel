@@ -3,23 +3,27 @@
 
 export const columns= [
   {
-    accessorKey: "username",
-    header: "Username",
+    accessorKey: "id",
+    header: "Ticket Id",
   },
   {
-    accessorKey: "userid",
+    accessorKey: "userId",
     header: "UserId",
   },
   {
-    accessorKey: "fullname",
-    header: "Name",
+    accessorKey: "subject",
+    header: "Subject",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "description",
+    header: "Description",
   },
   {
-    accessorKey: "verficationstatus",
-    header: "Verification Status",
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created On",
   },
 ];

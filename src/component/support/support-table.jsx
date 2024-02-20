@@ -7,11 +7,12 @@ const SupportTable = () => {
 
     const data = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+           id: "jweifnjsufg",
+           userId: "sadkj",
+           subject: "Deposit",
+           description: "I am not able to deposit fund",
+           createdAt: "04-02-2024",
+           status: "PENDING"
         }
     ]
 

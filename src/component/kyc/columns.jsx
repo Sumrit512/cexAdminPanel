@@ -3,15 +3,11 @@
 
 export const columns= [
   {
-    accessorKey: "username",
-    header: "Username",
+    accessorKey: "userId",
+    header: "userId",
   },
   {
-    accessorKey: "userid",
-    header: "UserId",
-  },
-  {
-    accessorKey: "fullname",
+    accessorKey: "fullName",
     header: "Name",
   },
   {
@@ -19,7 +15,32 @@ export const columns= [
     header: "Email",
   },
   {
-    accessorKey: "verficationstatus",
+    accessorKey: "phoneNumber",
+    header: "Phone",
+  },
+  {
+    accessorKey: "address",
+    header: "Address",
+  },
+  {
+    accessorKey: "documentType",
+    header: "Type",
+  },
+  {
+    accessorKey: "documentUrl",
+    header: "Document",
+  },
+  {
+    accessorKey: "passportPicture",
+    header: "Picture",
+  },
+  {
+    accessorKey: "upiId",
+    header: "UPI ID",
+  },
+  {
+    accessorKey: "verifcationStatus",
     header: "Verification Status",
   },
 ];
+

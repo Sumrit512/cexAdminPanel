@@ -5,18 +5,24 @@ import { columns } from './columns'
 
 const KycTable = () => {
 
+
     const data = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+           userId: "askdai",
+           fullName: "Sumrit Arora",
+           phoneNumber: "8920595495",
+           email: "sumritarora.515@gmail.com",
+           address: "h-72 sector 23",
+           documentType : "AADHAR",
+           documentUrl: "https://aadharcard.png",
+           passportPicture : "https://pp.png",
+           upiId : "8952@ybl",
+           verifcationStatus : "COMPLETED"
         }
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data} />
+    <DataTable searchKey="userId" columns={columns} data={data} />
   )
 }
 

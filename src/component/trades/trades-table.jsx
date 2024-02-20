@@ -5,18 +5,23 @@ import { columns } from './columns'
 
 const TradeTable = () => {
 
+
     const data = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+           id: "adasd",
+           buyerId: "sadkj",
+           sellerId: "dasda",
+           price: "458",
+           quantity: "45",
+           value : "594521",
+           symbol : "BNB_USDT",
+           status : "COMPLETED",
+           createdAt : "04-02-2024"
         }
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data} />
+    <DataTable searchKey="id" columns={columns} data={data} />
   )
 }
 
