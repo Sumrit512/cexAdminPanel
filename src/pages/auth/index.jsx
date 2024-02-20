@@ -6,8 +6,8 @@ import { useRouter } from 'next/router';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 
-import  Input  from '@/components/ui/input';
 import toast from 'react-hot-toast';
+import { LoginInput } from '@/component/login-input';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -99,14 +99,14 @@ const Auth = () => {
                   onChange={(e) => setName(e.target.value)} 
                 />
               )}
-              <Input
+              <LoginInput
                 id="email"
                 type="email"
                 label="Email address or phone number"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} 
               />
-              <Input
+              <LoginInput
                 type="password" 
                 id="password" 
                 label="Password" 
