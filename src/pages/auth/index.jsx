@@ -9,22 +9,22 @@ import { FaGithub } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { LoginInput } from '@/component/login-input';
 
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       }
-//     }
-//   }
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
 
-//   return {
-//     props: {}
-//   }
-// }
+  return {
+    props: {}
+  }
+}
 
 const Auth = () => {
   const router = useRouter();
