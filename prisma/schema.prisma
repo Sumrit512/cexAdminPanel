@@ -29,7 +29,7 @@ model VerifiedUser{
   documentUrl String?
   passportPicture String?
   profilePicture String?
-  verifcationStatus VERIFICATIONSTATUS @default(INCOMPLETE)
+  verificationStatus VERIFICATIONSTATUS @default(INCOMPLETE)
   isVerified Boolean?
   upiId String?
   order Order[]

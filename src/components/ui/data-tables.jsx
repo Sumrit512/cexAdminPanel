@@ -27,6 +27,7 @@ const DataTable = ({
   columns,
   data,
   searchKey,
+  isLoading
 }) => {
   const [columnFilters, setColumnFilters] = useState([]);
   const table = useReactTable({

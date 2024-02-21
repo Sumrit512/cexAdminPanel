@@ -3,20 +3,21 @@ import React from 'react'
 import { columns } from './columns'
 
 
-const List = () => {
+const List = ({data, isLoading}) => {
 
-    const data = [
+    const sampleData = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+           userName: "sumrit",
+           userId: "sadkj",
+           fullName: "Sumrit Arora",
+           verificationStatus: "PENDING",
+           email: "sumrtiarora.512@gmail.com",
+           profilePicture : ""
         }
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data} />
+    <DataTable searchKey="userName" columns={columns} data={!isLoading ? data : sampleData} isLoading={isLoading} />
   )
 }
 

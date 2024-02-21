@@ -1,17 +1,24 @@
 "use client"
 
+import ProfilePicture from "./profile-picture";
+
 
 export const columns= [
   {
-    accessorKey: "username",
+    accessorKey: "profilePicture",
+    header: "Profile",
+    cell: ({ row }) => <ProfilePicture source={row.original.profilePicture} />
+  },
+  {
+    accessorKey: "userName",
     header: "Username",
   },
   {
-    accessorKey: "userid",
+    accessorKey: "userId",
     header: "UserId",
   },
   {
-    accessorKey: "fullname",
+    accessorKey: "fullName",
     header: "Name",
   },
   {
@@ -19,7 +26,7 @@ export const columns= [
     header: "Email",
   },
   {
-    accessorKey: "verficationstatus",
+    accessorKey: "verificationStatus",
     header: "Verification Status",
   },
 ];
