@@ -17,7 +17,7 @@ const List = ({data, isLoading}) => {
     ]
 
   return (
-    <DataTable searchKey="userName" columns={columns} data={!isLoading ? data : sampleData} isLoading={isLoading} />
+    <DataTable searchKey="userName" columns={columns} data={!isLoading && data ? data : sampleData} isLoading={isLoading} />
   )
 }
 

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "./skeleton"
 
 
 
@@ -82,9 +83,13 @@ const DataTable = ({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
+                    (isLoading ? <TableCell key={cell.id}>
+                      <Skeleton className="h-[10px] w-full rounded-xl"/>
+                    </TableCell>
+                    :
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    </TableCell>)
                   ))}
                 </TableRow>
               ))
