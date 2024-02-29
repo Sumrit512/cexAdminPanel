@@ -120,6 +120,7 @@ const FileUpload= ({
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response
+          onChange(res[0].url)
           console.log("Files: ", res);
           alert("Upload Completed");
         }}

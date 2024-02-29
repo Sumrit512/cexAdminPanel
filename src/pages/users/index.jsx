@@ -28,7 +28,7 @@ export async function getServerSideProps(context) {
 const Users = () => {
 
   const { data, error, isLoading } = useQuery('posts', useFetchUsers, {
-    refetchInterval: 10000, // 10 seconds in milliseconds
+    refetchInterval: 5000, // 10 seconds in milliseconds
   });
 
   return (

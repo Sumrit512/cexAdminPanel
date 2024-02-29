@@ -1,5 +1,6 @@
 "use client"
 
+import { CellAction } from "./cell-action";
 import ProfilePicture from "./profile-picture";
 
 
@@ -28,5 +29,13 @@ export const columns= [
   {
     accessorKey: "verificationStatus",
     header: "Verification Status",
+  },
+  {
+    accessorKey: "userStatus",
+    header: "User Status",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />
   },
 ];

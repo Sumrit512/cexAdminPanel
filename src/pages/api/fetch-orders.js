@@ -13,21 +13,28 @@ export default async function handler(req, res) {
         return res.status(401).json("Unauthorized")
     }
 
-    const users = await client.verifiedUser.findMany()
+    const orders = await client.order.findMany();
 
-    const modifiedUser = users?.map((user) => {
+  
+
+    const modifiedOrders = orders?.map((order) => {
+     
         return {
-           profilePicture :  user.profilePicture,
-        userId : user.userId,
-        userName : user.userName,
-        email : user.email,
-        verificationStatus : user.verificationStatus,
-        fullName : user.fullName,
-        userStatus : user.userStatus
+            "id": order.id,
+            "userId": order.userId,
+            "price": order.price,
+            "placedAt": order.placedAt,
+            "type": order.type,
+            "value": order.value,
+            "quantity": order.quantity,
+            "tradeSymbol": `${order.tradeSymbolFirst}`,
+            "status": order.status,
+            "orderType": order.orderType,
+            "isCompleted": order.isCompleted
         }
     })
 
-    return res.status(200).json(modifiedUser);
+    return res.status(200).json(modifiedOrders);
    } catch (error) {
     console.log(error);
     return res.status(500).end();

@@ -12,9 +12,12 @@ const List = ({data, isLoading}) => {
            fullName: "Sumrit Arora",
            verificationStatus: "PENDING",
            email: "sumrtiarora.512@gmail.com",
-           profilePicture : ""
+           profilePicture : "",
+           userStatus : ""
         }
     ]
+
+   
 
   return (
     <DataTable searchKey="userName" columns={columns} data={!isLoading && data ? data : sampleData} isLoading={isLoading} />

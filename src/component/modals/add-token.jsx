@@ -35,16 +35,36 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const formSchema = z.object({
     name: z.string().min(1, {
-        message: "Server name is required."
+        message: "Token name is required."
     }),
-    imageUrl: z.string().min(1, {
-        message: "server image is required."
+    symbol: z.string().min(1, {
+        message: "Token symbol is required."
+    }),
+    volume: z.string().min(1, {
+        message: "Token volume is required."
+    }),
+    totalSupply: z.string().min(1, {
+        message: "Token supply is required."
+    }),
+    price: z.string().min(1, {
+        message: "Token inital price is required."
+    }),
+    dataSrc: z.string().min(1, {
+        message: "Token Data source is required."
+    }),
+    tradable: z.string(),
+    src: z.string().min(1, {
+        message: "Token logo is required."
     })
 }) 
 
 export const SourceType = {
     BINANCE : "BINANCE",
     MNB : "MNB"
+}
+export const TradableType = {
+    YES : "yes",
+    NO : "no"
 }
 
 export const AddToken = () => {
@@ -63,7 +83,13 @@ export const AddToken = () => {
         resolver: zodResolver(formSchema),
     defaultValues: {
         name: "",
-        imageUrl: ""
+        symbol: "",
+        src: "",
+        volume : "",
+        totalSupply : "",
+        dataSrc : "",
+        tradable : "",
+        price: ""
     }
     })
 
@@ -72,13 +98,35 @@ export const AddToken = () => {
     const onSubmit = async (values) => {
         console.log(values)
         try{
-            await axios.post("/api/servers", values)
-
-            form.reset()
-            router.refresh()
-            window.location.reload()
-
             
+            const data = {
+                C : Date.now() - 1,
+                E : Date.now(),
+                P : "0",
+                s : `${values.symbol}USDT`,
+                q : "0",
+                v: "0",
+                h : values.price.toString(),
+                l : values.price.toString(),
+                p : "0",
+                o: values.price.toString(),
+                w: values.price.toString(),
+                x : values.price.toString(),
+                t: values.totalVolume,
+                label: `${values.symbol.toLowerCase()}usdt@ticker`,
+                c: values.price.toString()
+            }
+            console.log(values.label)
+           const apiResp = await axios.post("/api/add-token", values)
+        //     console.log(data)
+            const resp = await axios.post(`http://localhost:3006/insert`, data)
+           // console.log(resp)
+             form.reset()
+              onClose()
+          
+            // router.refresh()
+            // window.location.reload()
+
         } catch(e) {
             console.log(e)
         }
@@ -102,8 +150,8 @@ export const AddToken = () => {
          className='
          bg-white
          text-black
-         p-0
-         overflow-y-scroll
+        space-x-8
+        
          '
          >
             <DialogHeader className='
@@ -130,289 +178,355 @@ export const AddToken = () => {
                 <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className='
-                space-y-8
+          
                 '
                 >
-                  <div className='
-                 
-                  px-6
-                  '>
-                    
+                    <div className='flex flex-row '>
+                                <div className='flex-1 flex flex-col gap-2'>
+                                <FormField
+                            control={form.control}
+                            name='name'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Token Name
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Token name'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name='symbol'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Token Symbol
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
 
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Token Name
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Token name'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Token Symbol
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Token Symbol'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Initial Price
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Initial Price'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Market Supply
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Market supply'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Total Supply
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Total Supply'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                        <FormItem>
-                              <FormLabel className='
-                              uppercase 
-                              text-xs
-                              font-bold
-                              text-zinc-500
-                              dark:text-secondary/70
-                              '>
-                                Initial Price
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                disabled={isLoading}
-                                className='
-                                bg-zinc-300/50
-                                border-0
-                                focus-visible:ring-0
-                                text-black
-                                focus-visible:ring-offset-0
-                                '
-                                placeholder='Enter Initial Price'
-                                {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                        </FormItem>
-                            )}
-                    />
-                 
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Token Symbol'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name='price'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Initial Price
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Initial Price'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                            {/* <FormField
+                            control={form.control}
+                            name='marketSupply'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Market Supply
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Market supply'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            /> */}
+                           
 
-                    <FormField
-                        control={form.control}
-                        name="type"
-                        render={({field}) => (
-                            <FormItem
-                            className="
-                            uppercase text-xs
-                            font-bold
-                            text-zinc-500
-                            dark:text-secondary/70
-                            "
-                            >
-                                <FormLabel>Source</FormLabel>
-                                <Select
-                                disabled={isLoading}
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                >
-                                  <FormControl>
-                                    <SelectTrigger
+                            <div className='
+                            flex-1
+                            flex
+                            mt-4
+                            items-center
+                            justify-center
+                            text-center
+                            '> 
+                                <FormField
+                                control={form.control}
+                                name="src"
+                                render={({field}) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <FileUpload
+                                        endpoint="serverImage"
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                                )}
+                                />
+                            </div>
+                                    </div>
+                            <div className='
+                         
+                            px-6
+                            flex-1 flex flex-col gap-2
+                            '>
+                            
+
+                            <FormField
+                            control={form.control}
+                            name='totalSupply'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Total Supply
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Total Supply'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                           
+                            <FormField
+                            control={form.control}
+                            name='tradable'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Tradable
+                                        </FormLabel>
+                                        <Select
+                                        disabled={isLoading}
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                            <SelectTrigger
+                                            className="
+                                            bg-zinc-300/50
+                                            border-0
+                                            focus:ring-0
+                                            text-black
+                                            ring-offset-0
+                                            focus:ring-offset-0
+                                            capitalize
+                                            outline-none
+                                            "
+                                            >
+                                                <SelectValue
+                                                placeholder="Select tradablity"
+                                                />
+                                            </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                            {
+                                                Object.values(TradableType).map((type) => (
+                                                    <SelectItem
+                                                    key={type}
+                                                    value={type}
+                                                  className="capitalize"
+                                                    >
+                                                        {type.toUpperCase()}
+                                                    </SelectItem>
+                                                ))
+                                            }
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                             <FormField
+                            control={form.control}
+                            name='volume'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Volume
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Volume'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="dataSrc"
+                                render={({field}) => (
+                                    <FormItem
                                     className="
-                                    bg-zinc-300/50
-                                    border-0
-                                    focus:ring-0
-                                    text-black
-                                    ring-offset-0
-                                    focus:ring-offset-0
-                                    capitalize
-                                    outline-none
+                                    uppercase text-xs
+                                    font-bold
+                                    text-zinc-500
+                                    dark:text-secondary/70
                                     "
                                     >
-                                       <SelectValue
-                                       placeholder="Select a Source"
-                                       />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    {
-                                        Object.values(SourceType).map((type) => (
-                                            <SelectItem
-                                            key={type}
-                                            value={type}
-                                            className="capitalize"
+                                        <FormLabel>Source</FormLabel>
+                                        <Select
+                                        disabled={isLoading}
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                            <SelectTrigger
+                                            className="
+                                            bg-zinc-300/50
+                                            border-0
+                                            focus:ring-0
+                                            text-black
+                                            ring-offset-0
+                                            focus:ring-offset-0
+                                            capitalize
+                                            outline-none
+                                            "
                                             >
-                                               {type.toLowerCase()}
-                                            </SelectItem>
-                                        ))
-                                    }
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
+                                                <SelectValue
+                                                placeholder="Select a Source"
+                                                />
+                                            </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                            {
+                                                Object.values(SourceType).map((type) => (
+                                                    <SelectItem
+                                                    key={type}
+                                                    value={type}
+                                                    className="capitalize"
+                                                    >
+                                                        {type.toLowerCase()}
+                                                    </SelectItem>
+                                                ))
+                                            }
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
 
-                    <div className='
-                    flex
-                    mt-4
-                    items-center
-                    justify-center
-                    text-center
-                    '> 
-                     <FormField
-                     control={form.control}
-                     name="imageUrl"
-                     render={({field}) => (
-                        <FormItem>
-                            <FormControl>
-                               <FileUpload
-                               endpoint="serverImage"
-                               value={field.value}
-                               onChange={field.onChange}
-                               />
-                            </FormControl>
-                        </FormItem>
-                     )}
-                     />
+                       
+                            </div>
                     </div>
-                    
-                    </div>  
+                  
+                   
 
                     <DialogFooter className='
                     bg-gray-100

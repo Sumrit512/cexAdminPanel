@@ -1,11 +1,19 @@
 import  DataTable  from '@/components/ui/data-tables'
 import React from 'react'
 import { columns } from './columns'
+import { useQuery } from 'react-query'
+import { useFetchOrders } from '../../../hooks/useApis'
 
 
 const OrderTable = () => {
 
-    const data = [
+  const {data} = useQuery("orders", useFetchOrders, {
+    refetchInterval: 5000
+  })
+
+    const dummyData = [
+
+      
         {
            id: "aksdjaiod",
            userid: "ajsdiauhd",
@@ -21,7 +29,7 @@ const OrderTable = () => {
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data} />
+    <DataTable searchKey="username" columns={columns} data={data ? data : dummyData} />
   )
 }
 

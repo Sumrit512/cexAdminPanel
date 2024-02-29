@@ -1,6 +1,7 @@
 
 import serverAuth from "@/lib/serverAuth";
 import client from "@/lib/prismadb";
+import { data } from "autoprefixer";
 
 export default async function handler(req, res) {
   
@@ -13,21 +14,27 @@ export default async function handler(req, res) {
         return res.status(401).json("Unauthorized")
     }
 
-    const users = await client.verifiedUser.findMany()
+    const tokens = await client.tokens.findMany()
 
-    const modifiedUser = users?.map((user) => {
+    
+
+    const modifiedToken = tokens?.map((token) => {
+     
         return {
-           profilePicture :  user.profilePicture,
-        userId : user.userId,
-        userName : user.userName,
-        email : user.email,
-        verificationStatus : user.verificationStatus,
-        fullName : user.fullName,
-        userStatus : user.userStatus
+            id: token.id,
+        src :  token.src,
+        label : token.label,
+        symbol : token.symbol,
+        createdAt : token.createdAt,
+        name : token.name,
+        dataSrc : token.dataSrc,
+        totalSupply : token.totalSupply,
+        volume : token.volume,
+        tradable : token.tradable
         }
     })
 
-    return res.status(200).json(modifiedUser);
+    return res.status(200).json(modifiedToken);
    } catch (error) {
     console.log(error);
     return res.status(500).end();
@@ -37,7 +44,7 @@ if(req.method === "PATCH") {
   try {
 
    
-    const {userId} = req.body
+    const bodyData = req.body
    
     delete req.body
   
@@ -47,24 +54,20 @@ if(req.method === "PATCH") {
         return res.status(401).json("Unauthorized")
     }
   
-    const userDetails = await client.verifiedUser.findUnique({
-      where : {
-        userId
-      }
+    const tokenDetails = await client.tokens.findUnique({
+      where : bodyData
     })
 
-    const users = await client.verifiedUser.update({
-      where : {
-        userId
-      },
+    const tokens = await client.tokens.update({
+      where : bodyData,
       data: {
-        userStatus : userDetails.userStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE" 
+        tradable : tokenDetails.tradable ? false : true
       }
     })
 
    
 
-    return res.status(200).json(users);
+    return res.status(200).json(tokens);
    } catch (error) {
     console.log(error);
     return res.status(500).end();
@@ -74,22 +77,21 @@ if(req.method === "DELETE") {
   try {
     const isValid = await serverAuth(req);
     
+    const bodyData = req.query
+
+    delete req.body
+
     if(!isValid) {
         return res.status(401).json("Unauthorized")
     }
 
-    console.log(req.query)
-    
-    const {userId} = req.query
-    console.log(userId)
+    const searchData = {...bodyData, tradable : bodyData.tradable ? true : false}
 
-    const users = await client.verifiedUser.delete({
-      where: {
-        userId 
-      }
+    const token = await client.tokens.delete({
+      where: searchData
     })
 
-    return res.status(200).json(users);
+    return res.status(200).json(token);
    } catch (error) {
     console.log(error);
     return res.status(500).end();

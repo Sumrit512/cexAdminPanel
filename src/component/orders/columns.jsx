@@ -7,7 +7,7 @@ export const columns= [
     header: "Order Id",
   },
   {
-    accessorKey: "userid",
+    accessorKey: "userId",
     header: "UserId",
   },
   {

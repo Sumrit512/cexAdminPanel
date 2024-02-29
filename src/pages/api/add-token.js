@@ -13,58 +13,62 @@ export default async function handler(req, res) {
         return res.status(401).json("Unauthorized")
     }
 
-    const users = await client.verifiedUser.findMany()
+    const tokens = await client.tokens.findMany()
 
-    const modifiedUser = users?.map((user) => {
+    
+
+    const modifiedToken = tokens?.map((token) => {
+     
         return {
-           profilePicture :  user.profilePicture,
-        userId : user.userId,
-        userName : user.userName,
-        email : user.email,
-        verificationStatus : user.verificationStatus,
-        fullName : user.fullName,
-        userStatus : user.userStatus
+        src :  token.src,
+        label : token.label,
+        symbol : token.symbol,
+        createdAt : token.createdAt,
+        name : token.name,
+        dataSrc : token.dataSrc,
+        totalSupply : token.totalSupply,
+        volume : token.volume,
+        tradable : token.tradable
         }
     })
 
-    return res.status(200).json(modifiedUser);
+    return res.status(200).json(modifiedToken);
    } catch (error) {
     console.log(error);
     return res.status(500).end();
   }
 } 
-if(req.method === "PATCH") {
+if(req.method === "POST") {
   try {
 
    
-    const {userId} = req.body
+    const values = req.body
    
     delete req.body
   
+    //console.log(values)
+
     const isValid = await serverAuth(req);
    
     if(!isValid) {
         return res.status(401).json("Unauthorized")
     }
+    
+    let volume = (Number(values.totalSupply) * Number(values.price)).toString()
+    let label = `${values.symbol.toLowerCase()}usdt@ticker`
+    let change = "25"
+    let link = `/${values.symbol.toUpperCase()}_USDT`
+ 
+    const data = { ...values, volume, label, change, link, tradable : values.tradable === "yes" ? true : false}
   
-    const userDetails = await client.verifiedUser.findUnique({
-      where : {
-        userId
-      }
-    })
 
-    const users = await client.verifiedUser.update({
-      where : {
-        userId
-      },
-      data: {
-        userStatus : userDetails.userStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE" 
-      }
+    const token = await client.tokens.create({
+      data
     })
 
    
 
-    return res.status(200).json(users);
+    return res.status(200).json(token);
    } catch (error) {
     console.log(error);
     return res.status(500).end();
