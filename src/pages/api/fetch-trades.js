@@ -13,60 +13,56 @@ export default async function handler(req, res) {
         return res.status(401).json("Unauthorized")
     }
 
-    const tokens = await client.tokens.findMany()
+    const trade = await client.trades.findMany();
 
-    
+  
 
-    const modifiedToken = tokens?.map((token) => {
-     
+    const modifiedTrade = trade?.map((trads, i) => {
+  
         return {
-        src :  token.src,
-        label : token.label,
-        symbol : token.symbol,
-        createdAt : token.createdAt,
-        name : token.name,
-        dataSrc : token.dataSrc,
-        totalSupply : token.totalSupply,
-        volume : token.volume,
-        tradable : token.tradable
+            ...trade[i],
+            symbol: `${trads.tradeSymbolFirst.toString().toUpperCase()}_${trads.tradeSymbolSecond.toString().toUpperCase()}`
         }
     })
 
-    return res.status(200).json(modifiedToken);
+    return res.status(200).json(modifiedTrade);
    } catch (error) {
     console.log(error);
     return res.status(500).end();
   }
 } 
-if(req.method === "POST") {
+if(req.method === "PATCH") {
   try {
 
    
-    const values = req.body
+    const {userId} = req.body
    
     delete req.body
   
-    //console.log(values)
-
     const isValid = await serverAuth(req);
    
     if(!isValid) {
         return res.status(401).json("Unauthorized")
     }
-    
-    let volume = (Number(values.totalSupply) * Number(values.price)).toString()
-    let label = `${values.symbol.toLowerCase()}usdt@ticker`
-    let change = "25"
-    let link = `/${values.symbol.toUpperCase()}_USDT`
- 
-    const data = { ...values, volume, label, change, link, tradable : values.tradable === "yes" ? true : false}
   
-
-    const token = await client.tokens.create({
-      data
+    const userDetails = await client.verifiedUser.findUnique({
+      where : {
+        userId
+      }
     })
 
-    return res.status(200).json(token);
+    const users = await client.verifiedUser.update({
+      where : {
+        userId
+      },
+      data: {
+        userStatus : userDetails.userStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE" 
+      }
+    })
+
+   
+
+    return res.status(200).json(users);
    } catch (error) {
     console.log(error);
     return res.status(500).end();

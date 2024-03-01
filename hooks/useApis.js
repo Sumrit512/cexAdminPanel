@@ -27,3 +27,11 @@ export const useFetchOrders = async () => {
         console.log('[FETCH_ORDERS]',e)
     }
 }
+export const useFetchTrades = async () => {
+    try {
+        const {data} = await axios.get(`/api/fetch-trades`)
+        return data
+    } catch(e) {
+        console.log('[FETCH_ORDERS]',e)
+    }
+}

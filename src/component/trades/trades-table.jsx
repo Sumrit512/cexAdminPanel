@@ -1,12 +1,17 @@
 import  DataTable  from '@/components/ui/data-tables'
 import React from 'react'
 import { columns } from './columns'
+import { useQuery } from 'react-query'
+import { useFetchTrades } from '../../../hooks/useApis'
 
 
 const TradeTable = () => {
 
+  const {data, isLoading} = useQuery("trades", useFetchTrades, {
+    refetchInterval: 5000
+  })
 
-    const data = [
+    const dummyData = [
         {
            id: "adasd",
            buyerId: "sadkj",
@@ -21,7 +26,7 @@ const TradeTable = () => {
     ]
 
   return (
-    <DataTable searchKey="id" columns={columns} data={data} />
+    <DataTable searchKey="id" columns={columns} data={data? data : dummyData} isLoading={isLoading}/>
   )
 }
 

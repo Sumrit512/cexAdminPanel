@@ -7,7 +7,7 @@ import { useFetchOrders } from '../../../hooks/useApis'
 
 const OrderTable = () => {
 
-  const {data} = useQuery("orders", useFetchOrders, {
+  const {data, isLoading} = useQuery("orders", useFetchOrders, {
     refetchInterval: 5000
   })
 
@@ -16,7 +16,7 @@ const OrderTable = () => {
       
         {
            id: "aksdjaiod",
-           userid: "ajsdiauhd",
+           userId: "ajsdiauhd",
            type: "Buy",
            price: "212.5",
            placedAt: "18-02-2024",
@@ -29,7 +29,7 @@ const OrderTable = () => {
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data ? data : dummyData} />
+    <DataTable searchKey="username" columns={columns} data={data ? data : dummyData} isLoading={isLoading}/>
   )
 }
 

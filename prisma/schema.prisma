@@ -135,7 +135,7 @@ model Order {
 }
 
 model Trades {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+ id String @id @default(auto()) @map("_id") @db.ObjectId
   buyerId String
   sellerId String
   price String

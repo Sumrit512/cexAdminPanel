@@ -7,7 +7,7 @@ import { useFetchTokens } from '../../../hooks/useApis'
 
 const TokenTable = () => {
 
-  const {data} = useQuery("tokens", useFetchTokens, {
+  const {data, isLoading} = useQuery("tokens", useFetchTokens, {
     refetchInterval : 5000
   })
 
@@ -27,7 +27,7 @@ const TokenTable = () => {
     ]
 
   return (
-    <DataTable searchKey="name" columns={columns} data={ data ? data : dummyData} />
+    <DataTable searchKey="name" columns={columns} data={ data ? data : dummyData} isLoading={isLoading}/>
   )
 }
 
