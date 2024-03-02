@@ -81,6 +81,7 @@ const Overview = () => {
         </div>
         <div className='mt-10 px-32 h-[500px]'>
            
+           <h1 className='mb-8 font-semibold text-xl text-center'>Order Chart</h1>
 
               <RenderLineChart/>
             
