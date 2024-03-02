@@ -32,6 +32,26 @@ export const useFetchTrades = async () => {
         const {data} = await axios.get(`/api/fetch-trades`)
         return data
     } catch(e) {
-        console.log('[FETCH_ORDERS]',e)
+        console.log('[FETCH_ORDERS_HOOK]',e)
+    }
+}
+
+export const useFetchKycData = async () => {
+    try{
+         const {data} = await axios.get(`/api/fetch-kyc-data`)
+         return data
+    } catch(e){
+        console.log('[FETCH_KYC_HOOK]',e)
+    }
+}
+
+export const useFetchWallets = async () => {
+    try{
+     
+        const {data } = await axios.get(`/api/fetch-wallets`)
+        return data
+
+    } catch(e){
+        console.log('[FETCH_WALLETS_HOOK]', e)
     }
 }

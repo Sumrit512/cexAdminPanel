@@ -1,23 +1,49 @@
 import  DataTable  from '@/components/ui/data-tables'
 import React from 'react'
 import { columns } from './columns'
+import { useFetchWallets } from '../../../hooks/useApis'
+import { useQuery } from 'react-query'
 
 
-const TradeTable = () => {
+const WalletsTable = () => {
 
-    const data = [
+  // {
+  //   accessorKey: "userId",
+  //   header: "UserId",
+  // },
+  // {
+  //   accessorKey: "blockchain",
+  //   header: "Blockchain Type",
+  // },
+  // {
+  //   accessorKey: "currencySymbol",
+  //   header: "Symbol",
+  // },
+  // {
+  //   accessorKey: "walletAddress",
+  //   header: "Wallet Address",
+  // },
+  // {
+  //   accessorKey: "privateKey",
+  //   header: "Wallet Private Key",
+  // },
+
+  const {data, isLoading} = useQuery("wallet", useFetchWallets, {
+    refetchInterval: 5000
+  })
+
+    const dummyData = [
         {
-           username: "sumrit",
-           userid: "sadkj",
-           fullname: "Sumrit Arora",
-           verficationstatus: "PENDING",
-           email: "sumrtiarora.512@gmail.com"
+          userId: "",
+          blockchain: "",
+          walletAddress: "",
+          privateKey: ""
         }
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data} />
+    <DataTable searchKey="userId" columns={columns} data={data? data : dummyData} isLoading={isLoading}/>
   )
 }
 
-export default TradeTable
+export default WalletsTable

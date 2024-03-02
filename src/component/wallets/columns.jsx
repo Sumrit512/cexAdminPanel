@@ -3,23 +3,19 @@
 
 export const columns= [
   {
-    accessorKey: "username",
-    header: "Username",
-  },
-  {
-    accessorKey: "userid",
+    accessorKey: "userId",
     header: "UserId",
   },
   {
-    accessorKey: "fullname",
-    header: "Name",
+    accessorKey: "blockchain",
+    header: "Blockchain Type",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "walletAddress",
+    header: "Wallet Address",
   },
   {
-    accessorKey: "verficationstatus",
-    header: "Verification Status",
+    accessorKey: "privateKey",
+    header: "Wallet Private Key",
   },
 ];

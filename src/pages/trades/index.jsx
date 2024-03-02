@@ -21,6 +21,9 @@ export async function getServerSideProps(context) {
   }
 
 const Trades = () => {
+  
+  
+
   return (
     <div className='w-full h-full px-6 py-6'>
     <Header

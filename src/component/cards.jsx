@@ -1,8 +1,9 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Users2 } from 'lucide-react'
 import React from 'react'
 
-const Cards = ({heading, icon, value, change }) => {
+const Cards = ({heading, icon, value, change, isLoading, isSymbol }) => {
   return (
  
         <div
@@ -14,10 +15,10 @@ const Cards = ({heading, icon, value, change }) => {
         <Users2 className='w-6 h-6'/>
         </div> 
         <h2 className='font-bold text-4xl pt-2 pl-6'>
-         $ {value}
+          {isSymbol ? `$` : ""} {isLoading ? <Skeleton/> : value}
         </h2>
         <p className='text-sm pt-2'>
-        {change}
+        {change? change: ""}
         </p>
         
         

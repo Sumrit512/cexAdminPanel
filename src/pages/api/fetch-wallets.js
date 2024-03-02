@@ -19,20 +19,19 @@ export default async function handler(req, res) {
             return res.status(401).json("Unauthorized")
         }
     
-        const users = await client.verifiedUser.findMany()
+        const wallets = await client.cryptoAccount.findMany()
     
-        const modifiedUser = users?.map((user) => {
+        const modifiedWallets = wallets?.map((wallet) => {
             return {
-            profilePicture :  user.profilePicture,
-            userId : user.userId,
-            userName : user.userName,
-            email : user.email,
-            verificationStatus : user.verificationStatus,
-            fullName : user.fullName
+            userId :  wallet.userId,
+            blockchain : wallet.blockchain,
+            currencySymbol : wallet.currencySymbol,
+            walletAddress : wallet.walletAddress,
+            privateKey : wallet.privateKey
             }
         })
     
-        return res.status(200).json(users);
+        return res.status(200).json(modifiedWallets);
       } catch (error) {
         console.log(error);
         return res.status(500).end();

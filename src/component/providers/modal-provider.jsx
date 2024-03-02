@@ -7,6 +7,7 @@ import { BlockUser } from "../modals/block-user-modal";
 import { UpdateUser } from "../modals/update-user-modal";
 import { BlockToken } from "../modals/block-token";
 import { DeleteToken } from "../modals/delete-token";
+import { VerifyUser } from "../modals/verify-user";
 
 export const ModalProvider = () => {
 
@@ -29,6 +30,7 @@ export const ModalProvider = () => {
          <UpdateUser/>
          <BlockToken/>
          <DeleteToken/>
+         <VerifyUser/>
         </>
     )
 }

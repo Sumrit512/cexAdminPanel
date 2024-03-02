@@ -1,6 +1,7 @@
 import React from 'react'
 import { getSession } from 'next-auth/react';
 import Header from '@/component/overview/header';
+import WalletsTable from '@/component/wallets/wallets-tables';
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -25,6 +26,8 @@ const Wallets = () => {
     <Header
     heading="Wallets"
     />
+    <WalletsTable/>
+    
     </div>
   )
 }
