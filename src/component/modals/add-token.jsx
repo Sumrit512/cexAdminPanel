@@ -119,7 +119,7 @@ export const AddToken = () => {
             console.log(values.label)
            const apiResp = await axios.post("/api/add-token", values)
         //     console.log(data)
-            const resp = await axios.post(`http://localhost:3006/insert`, data)
+            const resp = await axios.post(`http://15.206.132.225:3006/insert`, data)
            // console.log(resp)
              form.reset()
               onClose()
