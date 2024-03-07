@@ -31,7 +31,7 @@ export default NextAuth({
       },
       async authorize(credentials) {
         console.log(credentials)
-        const user = await prismadb.admin.findUnique({ where: {
+        const user = await prismadb.admin.findFirst({ where: {
           userName: credentials.email
         }});
         console.log("here is the user",user, credentials)
