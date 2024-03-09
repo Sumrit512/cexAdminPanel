@@ -55,7 +55,20 @@ const formSchema = z.object({
     tradable: z.string(),
     src: z.string().min(1, {
         message: "Token logo is required."
-    })
+    }),
+    balanceUrl: z.string().min(1, {
+        message: "Balance Url is required."
+    }),
+    txUrl: z.string().min(1, {
+        message: "Transaction Url is required."
+    }),
+    contractAddress: z.string().min(1, {
+        message: "Contract Address is required."
+    }),
+    blockchain: z.string().min(1, {
+        message: "Blockchain is required."
+    }),
+
 }) 
 
 export const SourceType = {
@@ -65,6 +78,12 @@ export const SourceType = {
 export const TradableType = {
     YES : "yes",
     NO : "no"
+}
+export const Blockchain = {
+  BINANCE : "BINANCE",
+  POLYGON : "POLYGON",
+  TRON : "TRON",
+  ETHEREUM : "ETHEREUM"
 }
 
 export const AddToken = () => {
@@ -89,7 +108,11 @@ export const AddToken = () => {
         totalSupply : "",
         dataSrc : "",
         tradable : "",
-        price: ""
+        price: "",
+        blockchain : "",
+        contractAddress : "",
+        txUrl : "",
+        balanceUrl : ""
     }
     })
 
@@ -150,13 +173,13 @@ export const AddToken = () => {
          className='
          bg-white
          text-black
-        space-x-8
+ 
         
          '
          >
             <DialogHeader className='
             pt-8
-            px-6
+        
 
             '>
                    <DialogTitle className='
@@ -173,7 +196,9 @@ export const AddToken = () => {
                      Give your token a personality with a name and image 
                    </DialogDescription>
             </DialogHeader>
+      <ScrollArea className="h-72 lg:h-96 w-full rounded-md border px-8">
 
+     
             <Form {...form}>
                 <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -276,6 +301,93 @@ export const AddToken = () => {
                                         {...field}
                                         />
                                         </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name='contractAddress'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Contract Address
+                                        </FormLabel>
+                                        <FormControl>
+                                        <Input
+                                        disabled={isLoading}
+                                        className='
+                                        bg-zinc-300/50
+                                        border-0
+                                        focus-visible:ring-0
+                                        text-black
+                                        focus-visible:ring-offset-0
+                                        '
+                                        placeholder='Enter Contract Adderess'
+                                        {...field}
+                                        />
+                                        </FormControl>
+                                        <FormMessage />
+                                </FormItem>
+                                    )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name='blockchain'
+                            render={({ field }) => (
+                                <FormItem>
+                                        <FormLabel className='
+                                        uppercase 
+                                        text-xs
+                                        font-bold
+                                        text-zinc-500
+                                        dark:text-secondary/70
+                                        '>
+                                        Blockchain
+                                        </FormLabel>
+                                        <Select
+                                        disabled={isLoading}
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                            <SelectTrigger
+                                            className="
+                                            bg-zinc-300/50
+                                            border-0
+                                            focus:ring-0
+                                            text-black
+                                            ring-offset-0
+                                            focus:ring-offset-0
+                                            capitalize
+                                            outline-none
+                                            "
+                                            >
+                                                <SelectValue
+                                                placeholder="Select Blockchain"
+                                                />
+                                            </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                            {
+                                                Object.values(Blockchain).map((type) => (
+                                                    <SelectItem
+                                                    key={type}
+                                                    value={type}
+                                                  className="capitalize"
+                                                    >
+                                                        {type.toUpperCase()}
+                                                    </SelectItem>
+                                                ))
+                                            }
+                                            </SelectContent>
+                                        </Select>
                                         <FormMessage />
                                 </FormItem>
                                     )}
@@ -521,6 +633,71 @@ export const AddToken = () => {
                                     </FormItem>
                                 )}
                             />
+                         
+                            <FormField
+                                control={form.control}
+                                name="balanceUrl"
+                                render={({field}) => (
+                                    <FormItem>
+                                    <FormLabel className='
+                                    uppercase 
+                                    text-xs
+                                    font-bold
+                                    text-zinc-500
+                                    dark:text-secondary/70
+                                    '>
+                                    Balance Url
+                                    </FormLabel>
+                                    <FormControl>
+                                    <Input
+                                    disabled={isLoading}
+                                    className='
+                                    bg-zinc-300/50
+                                    border-0
+                                    focus-visible:ring-0
+                                    text-black
+                                    focus-visible:ring-offset-0
+                                    '
+                                    placeholder='Enter Balance URL'
+                                    {...field}
+                                    />
+                                    </FormControl>
+                                    <FormMessage />
+                            </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="txUrl"
+                                render={({field}) => (
+                                    <FormItem>
+                                    <FormLabel className='
+                                    uppercase 
+                                    text-xs
+                                    font-bold
+                                    text-zinc-500
+                                    dark:text-secondary/70
+                                    '>
+                                    Transaction Url
+                                    </FormLabel>
+                                    <FormControl>
+                                    <Input
+                                    disabled={isLoading}
+                                    className='
+                                    bg-zinc-300/50
+                                    border-0
+                                    focus-visible:ring-0
+                                    text-black
+                                    focus-visible:ring-offset-0
+                                    '
+                                    placeholder='Enter Transaction URL'
+                                    {...field}
+                                    />
+                                    </FormControl>
+                                    <FormMessage />
+                            </FormItem>
+                                )}
+                            />
 
                        
                             </div>
@@ -529,11 +706,11 @@ export const AddToken = () => {
                    
 
                     <DialogFooter className='
-                    bg-gray-100
+                    
                     px-6
                     py-4
                     '>
-                        <Button disabled={isLoading} variant="primary">
+                        <Button disabled={isLoading} variant="danger">
                             Create
                         </Button>
 
@@ -541,7 +718,7 @@ export const AddToken = () => {
 
                 </form>
             </Form>
-
+            </ScrollArea>
          </DialogContent>
       
    
