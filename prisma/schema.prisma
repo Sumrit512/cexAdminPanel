@@ -38,10 +38,14 @@ model VerifiedUser{
   userStatus USERSTATUS @default(ACTIVE)
   isVerified Boolean?
   upiId String?
+  createdAt DateTime? @default(now())
+  verifiedAt DateTime? 
+  verificationInitiatedAt DateTime? 
   order Order[]
   cryptoTransaction CryptoTransaction[]
   cryptoAccount CryptoAccount[]
   fiatAccount FiatAccount[]
+
   fiatTransaction FiatTransaction[]
 }
 
@@ -113,7 +117,20 @@ model Tokens {
   txUrl String ?
   contractAddress String ?
   type String ?  
+  withdrawable Boolean?
+  depositable Boolean?
+  priceUrl String?
 }
+
+// model Blockchain {
+//     id String @id @default(auto()) @map("_id") @db.ObjectId
+//     name String @unique
+//     symbol String? 
+//     label String?
+//     contractAddress String?
+//     token Tokens @relation(fields: [id], references: [id], onDelete: Cascade)
+// }
+
 
 
 model Order {

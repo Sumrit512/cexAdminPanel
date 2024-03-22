@@ -65,9 +65,7 @@ const formSchema = z.object({
     contractAddress: z.string().min(1, {
         message: "Contract Address is required."
     }),
-    blockchain: z.string().min(1, {
-        message: "Blockchain is required."
-    }),
+    blockchain: z.string()
 
 }) 
 
@@ -80,10 +78,10 @@ export const TradableType = {
     NO : "no"
 }
 export const Blockchain = {
-  BINANCE : "BINANCE",
-  POLYGON : "POLYGON",
-  TRON : "TRON",
-  ETHEREUM : "ETHEREUM"
+  BINANCE : ["BINANCE"],
+  POLYGON : ["POLYGON"],
+  TRON :["TRON"],
+  ETHEREUM : ["ETHEREUM"]
 }
 
 export const AddToken = () => {
@@ -139,13 +137,14 @@ export const AddToken = () => {
                 label: `${values.symbol.toLowerCase()}usdt@ticker`,
                 c: values.price.toString()
             }
-            console.log(values.label)
-           const apiResp = await axios.post("/api/add-token", values)
+
+            console.log(values)
+        //    const apiResp = await axios.post("/api/add-token", values)
         //     console.log(data)
-           // const resp = await axios.post(`http://15.206.132.225:3006/insert`, data)
-           // console.log(resp)
-             form.reset()
-              onClose()
+        //    const resp = await axios.post(`http://15.206.132.225:3006/insert`, data)
+        //    console.log(resp)
+        //      form.reset()
+        //       onClose()
           
             // router.refresh()
             // window.location.reload()
@@ -337,7 +336,7 @@ export const AddToken = () => {
                                 </FormItem>
                                     )}
                             />
-                            <FormField
+                            {/* <FormField
                             control={form.control}
                             name='blockchain'
                             render={({ field }) => (
@@ -353,7 +352,8 @@ export const AddToken = () => {
                                         </FormLabel>
                                         <Select
                                         disabled={isLoading}
-                                        onValueChange={field.onChange}
+                                        multiple
+                                        onValueChange={(values) => field.onChange(values)}
                                         defaultValue={field.value}
                                         >
                                             <FormControl>
@@ -378,11 +378,11 @@ export const AddToken = () => {
                                             {
                                                 Object.values(Blockchain).map((type) => (
                                                     <SelectItem
-                                                    key={type}
-                                                    value={type}
+                                                    key={type[0]}
+                                                    value={type[0]}
                                                   className="capitalize"
                                                     >
-                                                        {type.toUpperCase()}
+                                                        {type[0].toUpperCase()}
                                                     </SelectItem>
                                                 ))
                                             }
@@ -391,7 +391,7 @@ export const AddToken = () => {
                                         <FormMessage />
                                 </FormItem>
                                     )}
-                            />
+                            /> */}
                             {/* <FormField
                             control={form.control}
                             name='marketSupply'

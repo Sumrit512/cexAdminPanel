@@ -89,6 +89,18 @@ if(req.method === "DELETE") {
       }
     })
 
+    const userSpotWallets = await client.spotWallet.deleteMany({
+      where : {
+        userId
+      }
+    })
+
+    const cryptoAccount = await client.cryptoAccount.deleteMany({
+      where: {
+        userId
+      }
+    })
+
     return res.status(200).json(users);
    } catch (error) {
     console.log(error);

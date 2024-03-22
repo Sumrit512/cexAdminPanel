@@ -29,7 +29,7 @@ const OrderTable = () => {
     ]
 
   return (
-    <DataTable searchKey="username" columns={columns} data={data ? data : dummyData} isLoading={isLoading}/>
+    <DataTable searchKey="id" columns={columns} data={data ? data : dummyData} isLoading={isLoading}/>
   )
 }
 
