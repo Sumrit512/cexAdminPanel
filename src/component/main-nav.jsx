@@ -56,6 +56,11 @@ export function MainNav({
       active: pathname === `/wallets`,
     },
     {
+      href: `/withdrawals`,
+      label: 'Withdrawals',
+      active: pathname === `/withdrawals`,
+    },
+    {
       href: `/settings`,
       label: 'Settings',
       active: pathname === `/settings`,

@@ -55,3 +55,20 @@ export const useFetchWallets = async () => {
         console.log('[FETCH_WALLETS_HOOK]', e)
     }
 }
+
+export const useCryptocurrencyWithdrawals = async () => {
+    try {
+        const {data } = await axios.get(`/api/fetch-withdrawals?type=cryptocurrency`)
+        return data
+    }catch(e) {
+        console.log(e)
+    }
+}
+export const useInrWithdrawals = async () => {
+    try {
+        const {data } = await axios.get(`/api/fetch-withdrawals?type=inr`)
+        return data
+    }catch(e) {
+        console.log(e)
+    }
+}

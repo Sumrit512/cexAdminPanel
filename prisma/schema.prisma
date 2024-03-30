@@ -122,6 +122,29 @@ model Tokens {
   priceUrl String?
 }
 
+model Withdrawals {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String
+  withdrawType String
+  
+  symbol String ?
+  currencyName String ?
+  blockchain String?
+  receiverAddress String?
+  upiId String ?
+  placedAt DateTime @default(now())
+  isCompleted Boolean?
+  completedAt DateTime?
+  Quantity String?
+  status String?
+  bank String?
+  accountNo String?
+  ifsc String?
+  withdrawTo String?
+  amount String
+  withdrawFrom String?
+}
+
 // model Blockchain {
 //     id String @id @default(auto()) @map("_id") @db.ObjectId
 //     name String @unique

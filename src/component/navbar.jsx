@@ -66,9 +66,14 @@ const Navbar = () => {
         active: pathname === `/wallets`,
       },
       {
+        href: `/withdrawals`,
+        label: 'Withdrawals',
+        active: pathname === `/wallets`,
+      },
+      {
         href: `/settings`,
         label: 'Settings',
-        active: pathname === `/settings`,
+        active: pathname === `/withdrawals`,
       },
     ]
 
